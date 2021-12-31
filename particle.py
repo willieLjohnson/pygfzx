@@ -9,7 +9,7 @@ class Particle:
         self.color = (0, 0, 255)
         self.thickness = 1
         self.speed = 0.01
-        self.angle = 0
+        self.angle = math.pi / 2
         
     def display(self, screen):
         pygame.draw.circle(screen, self.color, (self.x, self.y), self.size, self.thickness)
