@@ -3,9 +3,7 @@ import random
 import math
 
 from particle import Particle
-
-background_color = (255, 255, 255)
-(width, height) = (300, 200)
+from config import *
 
 screen = pygame.display.set_mode((width, height))
 pygame.display.set_caption('Fizx')
@@ -35,6 +33,7 @@ while running:
 
     for particle in particles:
         particle.move()
+        particle.bounce()
         particle.display(screen)
 
     pygame.display.flip()
