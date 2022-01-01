@@ -42,27 +42,26 @@ while running:
         if event.type == pygame.MOUSEBUTTONDOWN:
             (mouse_x, mouse_y) = pygame.mouse.get_pos()
             selected_particle = find_particle(particles, mouse_x, mouse_y)
-            if selected_particle:
-                (mouse_x, mouse_y) = pygame.mouse.get_pos()
-                selected_particle.x = mouse_x
-                selected_particle.y = mouse_y
-                selected_particle.color = (255, 0, 0)
-                
+            selected_particle.activate()
         elif event.type == pygame.MOUSEBUTTONUP:
+            selected_particle.deactivate()
             selected_particle = None
-
-    screen.fill(background_color)
-
-    for particle in particles:
-        if particle != selected_particle:
-            particle.move()
-            particle.bounce()
-        particle.display(screen)        
 
     if selected_particle:
         (mouse_x, mouse_y) = pygame.mouse.get_pos()
-        selected_particle.x = mouse_x
-        selected_particle.y = mouse_y
-        selected_particle.color = (255, 0, 0)
+        dx = mouse_x - selected_particle.x
+        dy = mouse_y - selected_particle.y
+        selected_particle.angle = math.atan2(dy, dx) + 0.5 * math.pi
+        selected_particle.speed = math.hypot(dx, dy) * 0.1
+        
+        
+    screen.fill(background_color)
+
+    for particle in particles:
+        particle.move()
+        particle.bounce()
+        particle.display(screen)        
+
+
         
     pygame.display.flip()
