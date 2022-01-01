@@ -10,6 +10,7 @@ pygame.display.set_caption('Fizx')
 
 number_of_particles = 5
 particles = []
+selected_particle = None
 for n in range(number_of_particles):
     size = random.randint(10, 20)
     x = random.randint(size, width-size)
@@ -42,13 +43,26 @@ while running:
             (mouse_x, mouse_y) = pygame.mouse.get_pos()
             selected_particle = find_particle(particles, mouse_x, mouse_y)
             if selected_particle:
+                (mouse_x, mouse_y) = pygame.mouse.get_pos()
+                selected_particle.x = mouse_x
+                selected_particle.y = mouse_y
                 selected_particle.color = (255, 0, 0)
+                
+        elif event.type == pygame.MOUSEBUTTONUP:
+            selected_particle = None
 
     screen.fill(background_color)
 
     for particle in particles:
-        particle.move()
-        particle.bounce()
-        particle.display(screen)
+        if particle != selected_particle:
+            particle.move()
+            particle.bounce()
+        particle.display(screen)        
 
+    if selected_particle:
+        (mouse_x, mouse_y) = pygame.mouse.get_pos()
+        selected_particle.x = mouse_x
+        selected_particle.y = mouse_y
+        selected_particle.color = (255, 0, 0)
+        
     pygame.display.flip()
