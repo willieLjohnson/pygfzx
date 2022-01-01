@@ -2,6 +2,7 @@ import pygame
 import math
 
 from config import *
+from vector import addVectors
 
 class Particle:
     def __init__(self, x, y, size):
@@ -19,6 +20,7 @@ class Particle:
     def move(self):
         self.x += math.sin(self.angle) * self.speed
         self.y -= math.cos(self.angle) * self.speed
+        (self.angle, self.speed) = addVectors(self.angle, self.speed, gravity[0], gravity[1])
         
     def bounce(self):
         if self.x > width - self.size:

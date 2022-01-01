@@ -24,6 +24,7 @@ for n in range(number_of_particles):
 global running
 running = True
 
+
 while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
