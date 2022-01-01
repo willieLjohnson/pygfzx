@@ -21,20 +21,24 @@ class Particle:
         self.x += math.sin(self.angle) * self.speed
         self.y -= math.cos(self.angle) * self.speed
         (self.angle, self.speed) = addVectors(self.angle, self.speed, gravity[0], gravity[1])
-        
+        self.speed *= drag
+
     def bounce(self):
         if self.x > width - self.size:
             self.x = 2 * (width - self.size) - self.x
             self.angle = -self.angle
-            
+            self.speed *= elasticity
         elif self.x < self.size:
             self.x = 2 * self.size - self.x
             self.angle = -self.angle
+            self.speed *= elasticity
+
 
         if self.y > height - self.size:
             self.y = 2 * (height - self.size) - self.y
             self.angle = math.pi - self.angle
-            
+            self.speed *= elasticity
         elif self.y < self.size:
             self.y = 2 * self.size - self.y
             self.angle = math.pi - self.angle
+            self.speed *= elasticity
